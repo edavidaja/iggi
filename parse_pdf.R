@@ -8,7 +8,7 @@ library(dplyr)
 source("footnotes.R")
 source("sidebar_text.R")
 
-read_pdf <- function(file) {
+parse_pdf <- function(file) {
   # extract table of contents and report text 
   
   toc <- pdf_toc(file) %>%
@@ -28,7 +28,8 @@ read_pdf <- function(file) {
     footnotes = footnotes,
     sidebar = sidebar
   )
+
 }
 
-infile <- read_pdf("pdfs/693817.pdf")
+infile <- parse_pdf("pdfs/693817.pdf")
 
