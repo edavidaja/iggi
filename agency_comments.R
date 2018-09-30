@@ -1,8 +1,3 @@
-rm(list=ls())
-
-
-setwd('~/iggi')
-
 library(purrr)
 library(dplyr)
 library(pdftools)
@@ -17,15 +12,9 @@ fil <- './pdfs/691520.pdf'
 text <- pdf_text(fil) %>% 
   str_split(., pattern = "\n")
 
-# get the appendcices
-appendices <- unlist(map(text, function(x) any(str_detect(x, 'Appendix') & str_detect(x, 'Comments from'))))
-# now only 16 pages to look through
-appendix_pages <- which(appendices)
-# remove teh first. its going to be the toc
-appendix_pages <- appendix_pages[-1]
-# need to comine all appendix pages into a single str
 
 get_comments_text <- function(x){
+  # need to comine all appendix pages into a single str  
   # conver the page of the pdf
   pngfile <- pdftools::pdf_convert(fil, dpi = 600, page = x)
   # teseract it
@@ -36,8 +25,17 @@ get_comments_text <- function(x){
   file.remove(png_fil)
   # return the text
   text
-  
 }
 
-# now ocr the text 
-agency_comments <- map_chr(appendix_pages, function(x) get_comments_text(x))
+get_comments <- function(text){
+  # get the appendcices
+  appendices <- unlist(map(text, function(x) any(str_detect(x, 'Appendix') & str_detect(x, 'Comments from'))))
+  # now only 16 pages to look through
+  appendix_pages <- which(appendices)
+  # remove teh first. its going to be the toc
+  appendix_pages <- appendix_pages[-1]
+  # now ocr the text 
+  agency_comments <- map_chr(appendix_pages, function(x) get_comments_text(x))
+  agency_comments
+}
+
