@@ -8,12 +8,15 @@ library(dplyr)
 read_pdf <- function(file) {
   # extract table of contents and report text 
   
-  toc <- pdf_toc(file)
+  toc <- pdf_toc(file) %>%
+    unlist(., use.names = FALSE) %>%
+    .[1:max(str_which(., "Appendix"))]
+
   text <- pdf_text(file) %>% 
     str_split(., pattern = "\r\n")
   
   list(
-    meta = toc,
+    toc = toc,
     text = text
   )
 }
