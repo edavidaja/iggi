@@ -8,6 +8,7 @@ library(dplyr)
 source("footnotes.R")
 source("sidebar_text.R")
 source("agency_comments.R")
+source("get_gao_citations.R")
 
 parse_pdf <- function(file) {
   # extract table of contents and report text 
@@ -23,6 +24,8 @@ parse_pdf <- function(file) {
   
   sidebar <- map_chr(text, extract_sidebar_text)
   
+  gao_citations <- get_gao_citations(text)
+  
   agency_comments <- get_comments(file, text)
   
   list(
@@ -30,6 +33,7 @@ parse_pdf <- function(file) {
     text = text,
     footnotes = footnotes,
     sidebar = sidebar,
+    gao_citations = gao_citations,
     agency_comments = agency_comments
   )
 
