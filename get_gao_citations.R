@@ -11,7 +11,7 @@ get_gao_citations <- function(text) {
   # remove the punctuation at the end
   # remove the whitespace
   citations <- unlist(citations) %>% 
-    gsub("[[:punct:]]$", "", x = .) %>% 
+    str_remove_all(., "[[:punct:]]$") %>% 
     str_trim(., side = "both")
   
   if (length(citations) == 0) {

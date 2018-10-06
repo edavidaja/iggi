@@ -1,6 +1,7 @@
 library(pdftools)
 library(jsonlite)
 library(purrr)
+library(furrr)
 library(stringr)
 library(tibble)
 library(dplyr)
@@ -43,5 +44,10 @@ parse_pdf <- function(file) {
 
 }
 
-infile <- parse_pdf("pdfs/693817.pdf")
+targets <- readr::read_csv("metadata.csv") %>% 
+  filter(lubridate::year(published) > 2001, !is.na(target)) %>%
+  mutate(files = paste0("pdfs/", basename(target))) %>% 
+  sample_n(30)
+
+infiles <- targets$files %>% future_map(parse_pdf, .progress = TRUE)
 
