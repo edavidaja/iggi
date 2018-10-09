@@ -10,7 +10,7 @@ get_comments_text <- function(file, appendix_page) {
   
   pngfile <- pdf_convert(
     pdf = file,
-    dpi = 300,
+    dpi = 600,
     pages = appendix_page,
     format = "png",
     filenames = tmp

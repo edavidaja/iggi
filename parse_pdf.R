@@ -45,9 +45,9 @@ parse_pdf <- function(file) {
 }
 
 targets <- readr::read_csv("metadata.csv") %>% 
-  filter(lubridate::year(published) > 2001, !is.na(target)) %>%
+  filter(lubridate::year(published) > 2010, !is.na(target)) %>%
   mutate(files = paste0("pdfs/", basename(target))) %>% 
-  sample_n(30)
+  sample_n(5)
 
-infiles <- targets$files %>% future_map(parse_pdf, .progress = TRUE)
+infiles <- targets$files %>% future_map(parse_pdf)
 
