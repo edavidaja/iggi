@@ -56,6 +56,7 @@ clip_footnotes <- function(page) {
   if (any(str_detect(page, "^[ 0-9]+$"))) {
     footnote_start <- min(str_which(page, "^[ 0-9]+$"))
     page[1:footnote_start - 1]
-    }
-  
+  } else {
+    page
+  }
 }

@@ -31,6 +31,10 @@ parse_pdf <- function(file) {
   agency_comments <- get_comments(file, text)
 
   legal_citations <- get_legal_citations(footnotes)
+  
+  text <- text %>% map(clip_footnotes) %>%  
+    map(markdownify_footnotes) %>% 
+    map(clip_sidebar_text)
 
   list(
     toc             = toc,
