@@ -1,0 +1,7 @@
+Package: iggi
+Imports:
+    pdftools,
+    tesseract,
+    jsonlite,
+    httr,
+    tidyverse
