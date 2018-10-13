@@ -4,4 +4,5 @@ Imports:
     tesseract,
     jsonlite,
     httr,
-    tidyverse
+    tidyverse,
+    furrr

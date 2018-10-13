@@ -139,12 +139,29 @@ Version: 1.2.6
 Hash: 88d3a977a2fca91cc44c36f8717bc481
 Requires: Rcpp
 
+Package: furrr
+Source: CRAN
+Version: 0.1.0
+Hash: 2bf07dd5ce0ab262a081cc9f0555b670
+Requires: future, globals, purrr, rlang
+
+Package: future
+Source: CRAN
+Version: 1.9.0
+Hash: ac421904c51df04a1fbefbc59d97bdfb
+Requires: digest, globals, listenv
+
 Package: ggplot2
 Source: CRAN
 Version: 3.0.0
 Hash: 8332448b76ff31472a1bf6dd31fcddb1
 Requires: digest, gtable, lazyeval, plyr, reshape2, rlang, scales,
     tibble, viridisLite, withr
+
+Package: globals
+Source: CRAN
+Version: 0.12.3
+Hash: 54b1a98a3b81be192136a8eb38b7ccdd
 
 Package: glue
 Source: CRAN
@@ -205,6 +222,11 @@ Package: lazyeval
 Source: CRAN
 Version: 0.2.1
 Hash: 88926ad9c43581fd0822a37c8ed09f05
+
+Package: listenv
+Source: CRAN
+Version: 0.7.0
+Hash: f5e0d09f4e42d749ae0f893cff1817b6
 
 Package: lubridate
 Source: CRAN

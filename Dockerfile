@@ -1,5 +1,7 @@
 FROM rocker/rstudio
 
 RUN sudo apt-get update && apt-get install libpoppler-cpp-dev poppler-utils
-RUN 
+COPY . /iggi
+WORKDIR /iggi
+RUN Rscript init.R
 
