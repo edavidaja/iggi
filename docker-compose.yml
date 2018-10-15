@@ -1,0 +1,17 @@
+cite:
+  build: './cite'
+  ports:
+   - "3001:3001"
+  entrypoint: cite-server 3001
+
+r:
+  build: .
+  ports:
+    - "8787:8787"
+  volumes:
+    - .:/iggi
+  working_dir: /iggi
+  links:
+    - cite
+  environment:
+    PASSWORD: password

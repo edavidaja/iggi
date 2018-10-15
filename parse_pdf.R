@@ -32,7 +32,8 @@ parse_pdf <- function(file) {
 
   legal_citations <- get_legal_citations(footnotes)
   
-  text <- text %>% map(clip_footnotes) %>%  
+  text <- text %>% 
+    map(clip_footnotes) %>%  
     map(markdownify_footnotes) %>% 
     map(clip_sidebar_text)
 
@@ -53,5 +54,6 @@ targets <- readr::read_csv("metadata.csv") %>%
   mutate(files = paste0("pdfs/", basename(target))) %>% 
   sample_n(5)
 
-infiles <- targets$files %>% future_map(parse_pdf)
+infiles <- targets$files %>%
+  future_map(parse_pdf)
 

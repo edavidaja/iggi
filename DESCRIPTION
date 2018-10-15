@@ -4,5 +4,12 @@ Imports:
     tesseract,
     jsonlite,
     httr,
-    tidyverse,
-    furrr
+    furrr,
+    purrr,
+    stringr,
+    tibble,
+    dplyr,
+    magrittr,
+    tidyr,
+    glue,
+    readr
