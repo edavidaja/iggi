@@ -11,7 +11,7 @@ get_legal_citations <- function(footnotes) {
     map(
       ~GET(
         # cite-server runs at 3000 by default
-        url = "http://localhost:3000/citation/find",
+        url = "http://cite:3001/citation/find",
         query = list(text = .x)
       )
     ) %>% 

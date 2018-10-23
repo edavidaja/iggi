@@ -12,4 +12,5 @@ Imports:
     magrittr,
     tidyr,
     glue,
-    readr
+    readr,
+    lubridate
