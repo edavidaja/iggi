@@ -1,22 +1,14 @@
 {
-	"meta":{
-		"report" : "GAO-123-456",
-		"title_slug": "SOUL CALIBER",
-		"title": "Nightmare was seriously wounded, but the soul still burns.",
-		"authors" : {
-			"director": "Given Sur",
-			"asst. dir": "Given Sur",
-			"aic": "Given Sur",
-			"staff": ["array", "of", "staff"]
-		},
-		"release date": "ISO-8601",
-		"publication date": "ISO-8601",
-		"congress" : {
-			"committee": ["array", "of", "committees"],
-			"requester": ["the", "honorable", "Anthony Weiner"]
-		},
-		"type": ["report", "special pub", "testimony"]
-	},
+  "report" : "GAO-123-456",
+  "title_slug": "SOUL CALIBER",
+  "title": "Nightmare was seriously wounded, but the soul still burns.",
+  "authors" : ["array", "of", "staff"],
+  "release date": "ISO-8601",
+  "publication date": "ISO-8601",
+  "congress" : {
+  	"committee": ["array", "of", "committees"],
+  	"requester": ["the", "honorable", "Anthony Weiner"]
+  },
 	"text": {
 		"toc": [
 			{"title": "title", "page": 1},
@@ -38,12 +30,7 @@
 		},
 		"fast_facts": "Nightmare!"
 	},
-	"analytics": {
-		"gao_citations": ["gao-234-256"],
-		"cfr_citations": [""],
-		"usc_citations": [],
-		"topic_models": ["topics"],
-		"methods": ["o", "s", "m"],
-		"readability_level": 8
-	}
+  "gao_citations": ["array", "of", "reports"],
+  "legal_citations": ["array", "of", "citations"],
+  "readability_level": 8
 }
