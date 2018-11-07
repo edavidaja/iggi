@@ -1,9 +1,59 @@
 library(httr)
+library(readr)
 library(rvest)
-library(tidyverse)
+library(dplyr)
+library(purrr)
+library(tibble)
+library(tidyr)
 library(lubridate)
+library(stringr)
+library(magrittr)
+library(glue)
 
-init <- read_html("https://www.gao.gov/browse/date/custom?&rows=50&o=&now_sort=issue_date_dt+desc%2Ctitle_sort+asc&adv_begin_date=01/01/1974&adv_end_date=08/18/2018")
+mmddyyyy <- function(x) {
+  glue("{str_pad(month(x), width = 2, side = 'left', pad='0')}/{str_pad(day(x), width = 2, side = 'left', pad='0')}/{year(x)}")
+  }
+
+max_report_date <- function() {
+  if(file.exists("metadata.csv")) {
+    meta <- read_csv("metadata.csv")
+    dt <- max(meta$published, na.rm = TRUE)
+  } else {
+    dt <- Sys.Date()
+  }
+  mmddyyyy(dt)
+}
+
+min_report_date <- function() {
+  if(file.exists("metadata.csv")) {
+    meta <- read_csv("metadata.csv")
+    dt <- as.character(min(meta$published, na.rm = TRUE))
+    mmddyyyy(dt)
+  } else {
+    "01/01/1974"
+  }
+}
+
+
+#' @param offset an integer
+#' @param start_date a date, in MM/DD/YYYY form
+#' @param end_date a date, in MM/DD/YYYY form
+get_page_list <- function(offset, start_date, end_date) {
+  RETRY(
+    verb = "GET",
+    url = "https://www.gao.gov/browse/date/custom",
+    query = list(
+      rows = 50,
+      o = offset,
+      now_sort = "issue_date_dt+desc,title_sort",
+      adv_begin_date = start_date, # "01/01/1974",
+      adv_end_date = end_date      # "08/18/2018"
+    ))
+  }
+
+init <- get_page_list("0", start_date = max_report_date(), mmddyyyy(Sys.Date())) %>%
+  content("text") %>% 
+  read_html()
 
 search_result_title <- init %>% 
   html_node(".scannableTitle") %>% 
@@ -22,17 +72,11 @@ meta <- offsets %>%
       if (.x %% 1000 == 0) print(.x)
       Sys.sleep(.1)
       
-      r <- RETRY(
-        verb = "GET",
-        url = url,
-        query = list(
-          o = .x,
-          now_sort="issue_date_dt+desc,title_sort+asc",
-          adv_begin_date="01/01/1974",
-          adv_end_date="08/18/2018",
-          rows=50
+      r <- get_page_list(
+          .x,
+          ifelse(file.exists("metadata.csv"), max_report_date(), min_report_date()),
+          mmddyyyy(Sys.Date())
         )
-      )
       x <- read_html(r) %>% 
         html_nodes(".grayBorderTop") %>% 
         map(., .f = html_nodes, "a")
@@ -71,7 +115,5 @@ meta <- offsets %>%
     }
   ))
 
-
-library(magrittr)
 z <- meta %>% transpose %$% result %>% bind_rows()
-write_csv(z, "metadata.csv")
+write_csv(z, "metadata.csv", append = TRUE)

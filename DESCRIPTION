@@ -13,4 +13,5 @@ Imports:
     tidyr,
     glue,
     readr,
-    lubridate
+    lubridate,
+    rvest

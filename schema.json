@@ -9,28 +9,26 @@
   	"committee": ["array", "of", "committees"],
   	"requester": ["the", "honorable", "Anthony Weiner"]
   },
-	"text": {
-		"toc": [
-			{"title": "title", "page": 1},
-			{"title": "h1", "page": 2},
-			{"title": "h2", "page": 2},
-			{"title": "h1_2", "page": 7}
-		],
-		"body": {
-			"page 1": "a long long time ago",
-			"page 2": "in a galaxy far away",
-			"page 3": "naboo was under an attack"
-		},
-		"tables": {
-			"table1": {"title": "", "notes":"", "data": {}},
-			"table2": {"title": "", "notes":"", "data": {}}
-		},
-		"footnotes": {
-			"footnote1": "text"
-		},
-		"fast_facts": "Nightmare!"
-	},
+  "toc": [
+  	{"title": "title", "page": 1},
+  	{"title": "h1", "page": 2},
+  	{"title": "h2", "page": 2},
+  	{"title": "h1_2", "page": 7}
+  ],
+  "body": {
+  	"page 1": "a long long time ago",
+  	"page 2": "in a galaxy far away",
+  	"page 3": "naboo was under an attack"
+  },
+  "tables": {
+  	"table1": {"title": "", "notes":"", "data": {}},
+  	"table2": {"title": "", "notes":"", "data": {}}
+  },
+  "figures": {"figure 1": ""},
+  "footnotes": {
+  	"footnote1": "text"
+  },
   "gao_citations": ["array", "of", "reports"],
   "legal_citations": ["array", "of", "citations"],
-  "readability_level": 8
+  "readability_level": {"flesch-kincaid": 12, "Smog": 12}
 }
