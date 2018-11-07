@@ -2,9 +2,11 @@ library(purrr)
 library(dplyr)
 library(glue)
 
+downloaded <- list.files(path = "pdfs")
+
 infile <- readr::read_csv("metadata.csv") %>% 
-  filter(target != "") %>% 
-  mutate(file = basename(target))
+  mutate(file = basename(target)) %>% 
+  filter(target != "", !(file %in% downloaded))
 
 infile$target %>%
   walk(safely(
