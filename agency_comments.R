@@ -23,7 +23,7 @@ get_comments_text <- function(file, appendix_page) {
 get_comments <- function(file, text) {
   # get the appendcices
   appendices <- text %>% 
-    map(~any(str_detect(.x, 'Appendix') & str_detect(.x, 'Comments from'))) %>% 
+    map(~any(str_detect(.x, 'Appendix') & str_detect(.x, 'Comments'))) %>% 
     unlist()
   
   appendix_pages <- which(appendices)
