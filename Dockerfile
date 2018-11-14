@@ -7,4 +7,5 @@ ENV MAKE='make -j 8'
 COPY init.R DESCRIPTION packrat.lock /iggi/
 WORKDIR /iggi
 RUN R -e "install.packages('jetpack')"
+USER rstudio
 RUN R -e "jetpack::install(deployment=TRUE)"

@@ -11,6 +11,7 @@ source("sidebar_text.R")
 source("agency_comments.R")
 source("get_gao_citations.R")
 source("legal-citations.R")
+source("boilerplates.R")
 
 parse_pdf <- function(file) {
   # extract table of contents and report text
@@ -32,7 +33,8 @@ parse_pdf <- function(file) {
 
   legal_citations <- get_legal_citations(footnotes)
   
-  text <- text %>% 
+  text <- text %>%
+    map(remove_page_numbers) %>% 
     map(clip_footnotes) %>%  
     map(markdownify_footnotes) %>% 
     map(clip_sidebar_text)
@@ -50,9 +52,9 @@ parse_pdf <- function(file) {
 }
 
 targets <- readr::read_csv("metadata.csv") %>% 
-  filter(lubridate::year(published) > 2010, !is.na(target)) %>%
+  filter(lubridate::year(published) > 2000, !is.na(target)) %>%
   mutate(files = paste0("pdfs/", basename(target))) %>% 
-  sample_n(5)
+  sample_n(15)
 
 infiles <- targets$files %>%
   future_map(parse_pdf)
