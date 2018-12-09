@@ -8,9 +8,8 @@ library(stringi)
 
 
 terms <- read_csv('./term.csv')
-terms <- terms %>% filter(word != 'Assistant Staff Director')
 terms <- terms %>% pull(word)
-terms <- c('testimony', 'Contacts', 'Staff', 'Natural', 'Resources', 'Environment', 'reached', '@gao.gov', terms)
+terms <- c('testimony', 'Contacts', 'Staff', 'Natural', 'Resources', 'Environment', 'reached', '@gao.gov', 'Acknowledgements', terms)
 
 get_staff_pages <- function(text){
   # get the appendcices
@@ -20,9 +19,10 @@ get_staff_pages <- function(text){
 }
 
 
-get_it <- function(x){
+get_staff_page <- function(x){
   
-  x <- '585588.pdf'
+  #x <- '694656.pdf'
+  
   text <- pdf_text(glue(getwd(), '/pdfs/', x)) %>% 
     str_split(., pattern = "\r\n")
 
@@ -34,23 +34,27 @@ get_it <- function(x){
   staff_page <- str_extract(staff_page, 'include .*|above.*')
   staff_page <- str_replace(staff_page, 'include |above\\,', '')
   staff_page <- str_replace(staff_page, '\\([:digit:]+\\)', '')
-  staff_page <- str_replace(staff_page, '\\.', '')
   staff_page <- stri_replace_last_regex(staff_page, '\\.', '')
   staff_page <- staff_page %>% str_squish()
+  
+  ads <- str_extract(staff_page, '.*\\(Assistant.*Director(|.*)\\)')
+  staff <- str_extract(staff_page, '\\(Assistant.*Director(|.*)\\).*') %>% str_replace('\\(Assistant.*Director(|.*)\\)', '')
 
-  staff = staff_page %>% str_split(',(?! Jr\\.|Sr\\.)|;|\\. Additional assistance was provided by| and')
-  staff = staff[[1]]
   
-  staff = staff %>% stringr::str_trim()
+  staff = list(ads = ads, staff = staff)
+  staff = map(staff, function(x) as.character(str_replace(x, '\\(.*\\)', '') %>% str_squish()))
+  staff = staff %>% str_split(',(?! Jr\\.|Sr\\.)|;|\\. Additional assistance was provided by| and')
+
+  staff = map(staff, function(x) as.character(str_trim(x)))
   
-  staff = as.character(str_replace_all(staff, collapse(terms, sep = '|'), ''))
-  staff = staff %>% str_trim()
-  staff
+  staff = map(staff, function(x) as.character(str_replace_all(x, collapse(terms, sep = '|'), '')))
+  staff = map(staff, function(x) as.character(x %>% str_squish()))
+  list(`Assistants Directors` = staff[[1]], Staff = staff[[2]])
   
   
 }
 
 
 
-get_it('585588.pdf')
+get_staff_page('694656.pdf')
 
