@@ -23,7 +23,12 @@ parse_pdf <- function(file) {
     str_split(., pattern = "\r\n")
 
   footnotes <- map(text, extract_footnotes) %>%
-    bind_rows()
+    bind_rows() %>% 
+    filter(
+      str_length(index) < 3,
+      index != "0",
+      str_detect(text, "[A-z]")
+      )
 
   sidebar <- map_chr(text, extract_sidebar_text)
 
