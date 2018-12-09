@@ -1,0 +1,17 @@
+Package: iggi
+Imports:
+    pdftools,
+    tesseract,
+    jsonlite,
+    httr,
+    furrr,
+    purrr,
+    stringr,
+    tibble,
+    dplyr,
+    magrittr,
+    tidyr,
+    glue,
+    readr,
+    lubridate,
+    rvest

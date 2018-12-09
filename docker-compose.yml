@@ -1,0 +1,30 @@
+cite:
+  build: './cite'
+  ports:
+   - "3001:3001"
+  entrypoint: cite-server 3001
+
+r:
+  build: .
+  ports:
+    - "8787:8787"
+  volumes:
+    - .:/iggi
+  working_dir: /iggi
+  links:
+    - cite
+  environment:
+    PASSWORD: password
+    
+elasticsearch:
+  image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+  container_name: elasticsearch
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  environment:
+    - "discovery.type=single-node"
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
