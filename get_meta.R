@@ -54,7 +54,7 @@ staff = staff[[1]]
 staff = staff %>% stringr::str_trim()
 
 library(stringr)
-
+terms
 staff = str_replace_all(staff, terms, '')
 staff
 # (                # begin capture
