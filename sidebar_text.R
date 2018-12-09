@@ -16,13 +16,34 @@ Mode <- function(x, na.rm = FALSE) {
 # the page shows as a wall of leading spaces for most lines, with the
 # title text replacing spaces where relevant
 extract_sidebar_text <- function(page) {
-  space_block <- str_locate(page, "^ +")
+  space_block <- str_locate(page, "^ +")[, 2]
   
   # the space block may contain indented lines, so identify
   # the modal position at which the spaces terminate
-  end_block <- Mode(space_block[,2])
+  end_block <- Mode(space_block)
   substr(page, 1, end_block) %>% 
     str_flatten() %>% 
     str_squish()
 }
 
+clip_sidebar_text <- function(page) {
+  space_block <- str_locate(page, "^ +")[,2]
+  
+  if (is.na(Mode(space_block))) {
+    return(page)
+  }
+  
+  # if page is only indented by one space block is a parsing artefact
+  if (Mode(space_block) == 1) {
+    return(page)
+  }
+  
+  # if page contains bullets then indentation will be wacky and page
+  # should be returned as is
+  if (any(str_detect(page, "\u2022"))) {
+    return(page)
+  }
+  
+  end_block <- Mode(space_block)
+  str_sub(page, start = end_block)
+}
