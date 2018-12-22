@@ -1,6 +1,6 @@
-library(stringr)
-library(purrr)
-
+#' @import purrr
+#' @import stringr
+#' @export
 get_gao_citations <- function(text) {
   # its always to followed by 2-4
   citations <- text %>% map(

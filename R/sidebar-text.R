@@ -1,4 +1,5 @@
-library(stringr)
+#' @import stringr
+
 # There's no built-in mode?!
 # https://stackoverflow.com/a/25635740/
 Mode <- function(x, na.rm = FALSE) {
@@ -15,6 +16,8 @@ Mode <- function(x, na.rm = FALSE) {
 # the right two thirds contains any body text. When extracted by by poppler,
 # the page shows as a wall of leading spaces for most lines, with the
 # title text replacing spaces where relevant
+#' @param page 
+#' @export
 extract_sidebar_text <- function(page) {
   space_block <- str_locate(page, "^ +")[, 2]
   
@@ -26,6 +29,7 @@ extract_sidebar_text <- function(page) {
     str_squish()
 }
 
+#' @export
 clip_sidebar_text <- function(page) {
   space_block <- str_locate(page, "^ +")[,2]
   
