@@ -7,9 +7,9 @@ library(tibble)
 library(dplyr)
 
 source("footnotes.R")
-source("sidebar_text.R")
-source("agency_comments.R")
-source("get_gao_citations.R")
+source("sidebar-text.R")
+source("agency-comments.R")
+source("get-gao-citations.R")
 source("legal-citations.R")
 source("boilerplates.R")
 
