@@ -9,7 +9,7 @@ library(dplyr)
 source("footnotes.R")
 source("sidebar-text.R")
 source("agency-comments.R")
-source("get-gao-citations.R")
+source("gao-citations.R")
 source("legal-citations.R")
 source("boilerplates.R")
 
