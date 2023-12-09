@@ -5,22 +5,23 @@ library(furrr)
 library(stringr)
 library(tibble)
 library(dplyr)
+library(magrittr)
 
-source("footnotes.R")
-source("sidebar-text.R")
-source("agency-comments.R")
-source("gao-citations.R")
-source("legal-citations.R")
-source("boilerplates.R")
+source("R/footnotes.R")
+source("R/sidebar-text.R")
+source("R/agency-comments.R")
+source("R/gao-citations.R")
+source("R/legal-citations.R")
+source("R/boilerplates.R")
 
-parse_pdf <- function(file) {
+parse_pdf <- function(report_id, file) {
   # extract table of contents and report text
 
   toc <- pdf_toc(file) %>%
     unlist(., use.names = FALSE)
 
   text <- pdf_text(file) %>%
-    str_split(., pattern = "\r\n")
+    str_split(., pattern = "\n")
 
   footnotes <- map(text, extract_footnotes) %>%
     bind_rows() %>% 
@@ -34,7 +35,7 @@ parse_pdf <- function(file) {
 
   gao_citations <- get_gao_citations(text)
 
-  agency_comments <- get_comments(file, text)
+  # agency_comments <- get_comments(file, text)
 
   legal_citations <- get_legal_citations(footnotes)
   
@@ -44,23 +45,27 @@ parse_pdf <- function(file) {
     map(markdownify_footnotes) %>% 
     map(clip_sidebar_text)
 
-  list(
-    toc             = toc,
-    text            = text,
+  parsed_pdf <- list(
+#    toc             = toc,
+ #   text            = text,
     footnotes       = footnotes,
     sidebar         = sidebar,
     gao_citations   = gao_citations,
-    agency_comments = agency_comments,
+   # agency_comments = agency_comments,
     legal_citations = legal_citations
   )
 
+  jsonlite::write_json(
+    parsed_pdf, 
+    path = glue::glue("parsed/{report_id}.json")
+    )
 }
 
 targets <- readr::read_csv("metadata.csv") %>% 
-  filter(lubridate::year(published) > 2000, !is.na(target)) %>%
+  filter(lubridate::year(published) == 2017, !is.na(target)) %>%
   mutate(files = paste0("pdfs/", basename(target))) %>% 
-  sample_n(15)
+  sample_n(10)
 
-infiles <- targets$files %>%
-  future_map(parse_pdf)
+targets %$%
+  map2(report, files, ~ parse_pdf(.x, .y))
 

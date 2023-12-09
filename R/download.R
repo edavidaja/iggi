@@ -6,7 +6,10 @@ downloaded <- list.files(path = "pdfs")
 
 infile <- readr::read_csv("metadata.csv") %>% 
   mutate(file = basename(target)) %>% 
-  filter(target != "", !(file %in% downloaded))
+  filter(
+    target != "", !(file %in% downloaded),
+    lubridate::year(published) == 2017
+    )
 
 infile$target %>%
   walk(safely(

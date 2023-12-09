@@ -3,3 +3,4 @@ pdfs/
 .Rhistory
 .DS_Store
 node_modules/
+parsed/
