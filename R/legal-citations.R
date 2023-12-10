@@ -1,4 +1,5 @@
-library(httr)
+#' @importFrom httr GET
+
 # accessor functions for grabbing the citation
 citation1 <- function(x) x$results$citations
 citation2 <- function(x) x$citation
@@ -9,8 +10,8 @@ irrelevant <- function(x) x$type == "reporter"
 get_legal_citations <- function(footnotes) {
   footnotes$text %>%
     map(
-      ~GET(
-        # cite-server runs at 3000 by default
+      ~ GET(
+        # todo: pararmeterize citaiton URL?ß 
         url = "https://citation.fly.dev/citation/find",
         query = list(text = .x)
       )

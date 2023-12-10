@@ -12,7 +12,7 @@ controller <- crew_controller_slurm(
 controller$start()
 
 results <- controller$map(
-  command = parse_pdf(.x, .y),
+  command = iggi::parse_pdf(.x, .y),
   iterate = list(
     .x = targets$report,
     .y = targets$files
