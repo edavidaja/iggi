@@ -14,9 +14,13 @@ source("R/gao-citations.R")
 source("R/legal-citations.R")
 source("R/boilerplates.R")
 
-parse_pdf <- function(report_id, file) {
-  # extract table of contents and report text
+plan(multisession)
 
+parse_pdf <- function(report_id, file) {
+  
+  message(glue::glue("process {Sys.getpid()} ran on node {Sys.info()[['nodename']]}"))
+  
+  # extract table of contents and report text
   toc <- pdf_toc(file) %>%
     unlist(., use.names = FALSE)
 
@@ -35,7 +39,7 @@ parse_pdf <- function(report_id, file) {
 
   gao_citations <- get_gao_citations(text)
 
-  # agency_comments <- get_comments(file, text)
+  agency_comments <- get_comments(file, text)
 
   legal_citations <- get_legal_citations(footnotes)
   
@@ -46,12 +50,12 @@ parse_pdf <- function(report_id, file) {
     map(clip_sidebar_text)
 
   parsed_pdf <- list(
-#    toc             = toc,
+    toc             = toc,
  #   text            = text,
     footnotes       = footnotes,
     sidebar         = sidebar,
     gao_citations   = gao_citations,
-   # agency_comments = agency_comments,
+    agency_comments = agency_comments,
     legal_citations = legal_citations
   )
 
@@ -66,6 +70,6 @@ targets <- readr::read_csv("metadata.csv") %>%
   mutate(files = paste0("pdfs/", basename(target))) %>% 
   sample_n(10)
 
-targets %$%
-  map2(report, files, ~ parse_pdf(.x, .y))
+#targets %$%
+#  future_map2(report, files, ~ parse_pdf(.x, .y))
 

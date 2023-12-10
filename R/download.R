@@ -14,7 +14,7 @@ infile <- readr::read_csv("metadata.csv") %>%
 infile$target %>%
   walk(safely(
     ~{
-      Sys.sleep(.5)
+      Sys.sleep(.1)
       download.file(
         url = glue("https://www.gao.gov{.x}"),
         destfile = glue("pdfs/{basename(.x)}"),
