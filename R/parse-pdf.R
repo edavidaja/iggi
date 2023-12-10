@@ -1,21 +1,6 @@
-library(pdftools)
-library(jsonlite)
-library(purrr)
-library(furrr)
-library(stringr)
-library(tibble)
-library(dplyr)
-library(magrittr)
-
-source("R/footnotes.R")
-source("R/sidebar-text.R")
-source("R/agency-comments.R")
-source("R/gao-citations.R")
-source("R/legal-citations.R")
-source("R/boilerplates.R")
-
-plan(multisession)
-
+#' Run extractor functions on report
+#'
+#' @export
 parse_pdf <- function(report_id, file) {
   
   message(glue::glue("process {Sys.getpid()} ran on node {Sys.info()[['nodename']]}"))
@@ -65,11 +50,4 @@ parse_pdf <- function(report_id, file) {
     )
 }
 
-targets <- readr::read_csv("metadata.csv") %>% 
-  filter(lubridate::year(published) == 2017, !is.na(target)) %>%
-  mutate(files = paste0("pdfs/", basename(target))) %>% 
-  sample_n(10)
-
-#targets %$%
-#  future_map2(report, files, ~ parse_pdf(.x, .y))
 

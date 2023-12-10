@@ -1,8 +1,9 @@
 #' @import stringr
 
-# There's no built-in mode?!
-# https://stackoverflow.com/a/25635740/
+#' @param x a vector
 Mode <- function(x, na.rm = FALSE) {
+  # There's no built-in mode?!
+  # https://stackoverflow.com/a/25635740
   if(na.rm) {
     x = x[!is.na(x)]
   }
@@ -12,13 +13,14 @@ Mode <- function(x, na.rm = FALSE) {
 }
 
 
-# only header text appears in the left third of the page
-# the right two thirds contains any body text. When extracted by by poppler,
-# the page shows as a wall of leading spaces for most lines, with the
-# title text replacing spaces where relevant
+#' extract sidebar text from page
+#' 
 #' @param page 
-#' @export
 extract_sidebar_text <- function(page) {
+  # only header text appears in the left third of the page
+  # the right two thirds contains any body text. When extracted by by poppler,
+  # the page shows as a wall of leading spaces for most lines, with the
+  # title text replacing spaces where relevant
   space_block <- str_locate(page, "^ +")[, 2]
   
   # the space block may contain indented lines, so identify
@@ -29,7 +31,6 @@ extract_sidebar_text <- function(page) {
     str_squish()
 }
 
-#' @export
 clip_sidebar_text <- function(page) {
   space_block <- str_locate(page, "^ +")[,2]
   

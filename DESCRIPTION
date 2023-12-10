@@ -1,0 +1,26 @@
+Package: iggi
+Title: Download and Analyze GAO Reports
+Version: 0.1.0
+Authors@R: 
+    person("David", "Aja", , "edavidaja@hey.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-4533-607X"))
+Description:
+  Download and analyze reports from the United States Government Accountability
+  Office
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    pdftools,
+    tesseract,
+    purrr,
+    stringr,
+    jsonlite,
+    tibble,
+    dplyr,
+    magrittr
+Suggests: 
+    furrr,
+    future.batchtools,
+    clustermq,
+    crew.cluster

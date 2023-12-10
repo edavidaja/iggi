@@ -1,6 +1,4 @@
-library(purrr)
-library(dplyr)
-library(glue)
+# download pdfs from web -------
 
 downloaded <- list.files(path = "pdfs")
 
@@ -9,7 +7,7 @@ infile <- readr::read_csv("metadata.csv") %>%
   filter(
     target != "", !(file %in% downloaded),
     lubridate::year(published) == 2017
-    )
+  )
 
 infile$target %>%
   walk(safely(
@@ -21,3 +19,10 @@ infile$target %>%
         mode = "wb"
       )}
   ))
+
+# list pdfs for parsing ---------
+
+targets <- readr::read_csv("metadata.csv") %>% 
+  filter(lubridate::year(published) == 2017, !is.na(target)) %>%
+  mutate(files = paste0("pdfs/", basename(target))) %>% 
+  sample_n(10)
