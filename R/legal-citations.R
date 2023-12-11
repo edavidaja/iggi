@@ -1,5 +1,4 @@
 #' @import httr
-#' @import magrittr
 
 # accessor functions for grabbing the citation
 citation1 <- function(x) x$results$citations

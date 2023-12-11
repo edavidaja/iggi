@@ -2,9 +2,7 @@
 #'
 #' @export
 parse_pdf <- function(report_id, file) {
-  
-  message(glue::glue("process {Sys.getpid()} ran on node {Sys.info()[['nodename']]}"))
-  
+
   # extract table of contents and report text
   toc <- pdf_toc(file) %>%
     unlist(., use.names = FALSE)
@@ -48,6 +46,12 @@ parse_pdf <- function(report_id, file) {
     parsed_pdf, 
     path = glue::glue("parsed/{report_id}.json")
     )
+  
+  list(
+    pid = Sys.getpid(),
+    node = Sys.info()[["nodename"]]
+  )
+    
 }
 
 

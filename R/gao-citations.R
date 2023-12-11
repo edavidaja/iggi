@@ -1,6 +1,6 @@
 #' @import purrr
 #' @import stringr
-
+#' @import dplyr
 
 get_gao_citations <- function(text) {
   # its always to followed by 2-4

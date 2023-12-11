@@ -5,4 +5,9 @@ options(
 
 library(clustermq)
 
-res <- Q(iggi::parse_pdf, report_id = targets$report, file = targets$files, n_jobs = 2)
+res <- Q(
+  iggi::parse_pdf, 
+  report_id = targets$report, file = targets$files, 
+  n_jobs = 2,
+  pkgs = c("magrittr", "pdftools", "tesseract", "purrr", "dplyr", "stringr", "iggi")
+  )

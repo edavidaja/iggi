@@ -1,5 +1,5 @@
-#' @import stringr
-
+#' Measure central tendency
+#' 
 #' @param x a vector
 Mode <- function(x, na.rm = FALSE) {
   # There's no built-in mode?!
