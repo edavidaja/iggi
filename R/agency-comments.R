@@ -1,6 +1,7 @@
 #' @import tesseract
 #' @import pdftools
 
+#' @export
 get_comments_text <- function(file, appendix_page) {
   # need to comine all appendix pages into a single str  
   # convert the page of the pdf
@@ -18,6 +19,7 @@ get_comments_text <- function(file, appendix_page) {
   text
 }
 
+#' @export
 get_comments <- function(file, text) {
   # get the appendcices
   appendices <- text %>% 

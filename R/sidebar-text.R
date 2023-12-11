@@ -16,6 +16,7 @@ Mode <- function(x, na.rm = FALSE) {
 #' extract sidebar text from page
 #' 
 #' @param page 
+#' @export
 extract_sidebar_text <- function(page) {
   # only header text appears in the left third of the page
   # the right two thirds contains any body text. When extracted by by poppler,
@@ -31,6 +32,7 @@ extract_sidebar_text <- function(page) {
     str_squish()
 }
 
+#' @export
 clip_sidebar_text <- function(page) {
   space_block <- str_locate(page, "^ +")[,2]
   

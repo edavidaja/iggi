@@ -7,6 +7,9 @@ citation2 <- function(x) x$citation
 # predicate function to reject "reporter" type citations
 irrelevant <- function(x) x$type == "reporter"
 
+#' Search footnotes for legal citations
+#' 
+#' @export
 get_legal_citations <- function(footnotes) {
   footnotes$text %>%
     map(

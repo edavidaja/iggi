@@ -2,7 +2,7 @@
 % Please edit documentation in R/footnotes.R
 \name{clip_footnotes}
 \alias{clip_footnotes}
-\title{remove the footnotes from the bottom of the page}
+\title{Remove the footnotes from the bottom of the page}
 \usage{
 clip_footnotes(page)
 }
@@ -13,5 +13,5 @@ clip_footnotes(page)
 a page of text with no footnote text
 }
 \description{
-remove the footnotes from the bottom of the page
+Remove the footnotes from the bottom of the page
 }

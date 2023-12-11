@@ -44,7 +44,7 @@ parse_pdf <- function(report_id, file) {
 
   jsonlite::write_json(
     parsed_pdf, 
-    path = glue::glue("parsed/{report_id}.json")
+    path = here::here("parsed", glue::glue("{report_id}.json"))
     )
   
   list(

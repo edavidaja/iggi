@@ -2,7 +2,7 @@
 % Please edit documentation in R/footnotes.R
 \name{markdownify_footnotes}
 \alias{markdownify_footnotes}
-\title{replace footnotes inline with markdown style footnote indicators.
+\title{Replace footnotes inline with markdown style footnote indicators.
 Exclude the words fig and any month abbreviations}
 \usage{
 markdownify_footnotes(page)
@@ -14,6 +14,6 @@ markdownify_footnotes(page)
 a page with all inline footnotes replaced with markdown style footnotes
 }
 \description{
-replace footnotes inline with markdown style footnote indicators.
+Replace footnotes inline with markdown style footnote indicators.
 Exclude the words fig and any month abbreviations
 }
