@@ -1,8 +1,8 @@
 options(
   clustermq.scheduler = "slurm",
-  clustermq.template = "clustermq.slurm.tmpl"
+  clustermq.template = here::here("inst", "clustermq.slurm.tmpl")
 )
 
 library(clustermq)
 
-res <- Q(parse_pdf, targets$report, targets$files, n_jobs = 1)
+res <- Q(iggi::parse_pdf, report_id = targets$report, file = targets$files, n_jobs = 2)

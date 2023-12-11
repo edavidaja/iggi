@@ -4,3 +4,4 @@ pdfs/
 .DS_Store
 node_modules/
 parsed/
+*.out
